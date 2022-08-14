@@ -26,3 +26,10 @@ func RenderSingle(c *fiber.Ctx) error {
 		"FiberTitle": "Hello From Fiber Html Engine",
 	}, "layouts/htm")
 }
+
+func RenderAbout(c *fiber.Ctx) error {
+	log.Println("Higshsss!")
+	return c.Render("about", fiber.Map{
+		"FiberTitle": "Hello From Fiber Html Engine",
+	})
+}

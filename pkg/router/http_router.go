@@ -21,6 +21,8 @@ func (h HttpRouter) InstallRouter(app *fiber.App) {
 
 	pages.Get("/vue", controllers.RenderFrontend)
 	pages.Get("/view", controllers.RenderSingle)
+
+	pages.Get("/about", controllers.RenderAbout)
 }
 
 func NewHttpRouter() *HttpRouter {
