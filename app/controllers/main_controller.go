@@ -7,17 +7,17 @@ import (
 )
 
 func RenderFrontend(c *fiber.Ctx) error {
-	log.Println("Higshsss!")
-	return c.Render("index", fiber.Map{
+	 
+	return c.Render("frontend", fiber.Map{
 		"FiberTitle": "Hello From Fiber Html Engine",
-	}, "layouts/fend")
+	})
 }
 
 func RenderHome(c *fiber.Ctx) error {
 	log.Println("Higshsss!")
 	return c.Render("index", fiber.Map{
 		"FiberTitle": "Hello From Fiber Html Engine",
-	}, "layouts/htm")
+	},)
 }
 
 func RenderSingle(c *fiber.Ctx) error {
@@ -27,9 +27,34 @@ func RenderSingle(c *fiber.Ctx) error {
 	}, "layouts/htm")
 }
 
+func RenderLogin(c *fiber.Ctx) error {
+	log.Println("Higshsss!")
+	return c.Render("frontend", fiber.Map{
+		"FiberTitle": "Hello From Fiber Html Engine",
+	})
+}
+
+func RenderLogout(c *fiber.Ctx) error {
+	log.Println("Higshsss!")
+	return c.Render("frontend", fiber.Map{
+		"FiberTitle": "Hello From Fiber Html Engine",
+	})
+}
+func RenderIndex(c *fiber.Ctx) error {
+	log.Println("Higshsss!")
+	return c.Render("frontend", fiber.Map{
+		"FiberTitle": "Hello From Fiber Html Engine",
+	})
+}
+func RenderDesign(c *fiber.Ctx) error {
+	log.Println("Higshsss!")
+	return c.Render("frontend", fiber.Map{
+		"FiberTitle": "Hello From Fiber Html Engine",
+	})
+}
 func RenderAbout(c *fiber.Ctx) error {
 	log.Println("Higshsss!")
-	return c.Render("about", fiber.Map{
+	return c.Render("frontend", fiber.Map{
 		"FiberTitle": "Hello From Fiber Html Engine",
 	})
 }
