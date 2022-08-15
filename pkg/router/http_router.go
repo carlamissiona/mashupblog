@@ -17,7 +17,7 @@ type HttpRouter struct {
 
 func (h HttpRouter) InstallRouter(app *fiber.App) {
 	pages := app.Group("", cors.New(), csrf.New())
-	pages.Get("/", controllers.RenderIndex)
+	pages.Get("/", controllers.RenderFrontend)
 
 	pages.Get("/vue", controllers.RenderFrontend)
 	pages.Get("/view", controllers.RenderSingle)

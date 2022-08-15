@@ -1,1 +1,3 @@
-`<h1>Design</h1>`
+var Designs = { 
+	template: "<div><h1>Designs</h1><p>This is contact page</p></div>"
+} 
