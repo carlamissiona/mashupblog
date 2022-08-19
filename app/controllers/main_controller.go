@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"log"
-
+	
 	"github.com/gofiber/fiber/v2"
     "bytes"
 	"encoding/json"
@@ -21,11 +21,11 @@ var Url = "https://loremdb.hasura.app/v1/graphql"
 
 type Request struct {
 		Data DataForm
-	}
+}
 type DataForm struct {
-	Nfb_users       []User     `json:"nfb_users"`
-	Nfb_bitcoin     []Coins    `json:"nfb_bitcoin"`
-	Nfb_blog        []Articles    `json:"nfb_bitcoin"`
+	Nfb_Users       []User     `json:"nfb_users"`
+	Nfb_Bitcoin     []Coins    `json:"nfb_bitcoin"`
+	Nfb_Blog        []Articles    `json:"nfb_blog"`
 }
 
 type Coins struct {
@@ -42,7 +42,7 @@ type Articles struct {
 		Title string `json:"title"`
 		Link string `json:"link"`
 		Content string `json:"content"`
-	}
+}
 
 type User struct {
 	Full_name string `json:"full_name"`
@@ -55,9 +55,7 @@ type User struct {
 
 
 func RenderFrontend(c *fiber.Ctx) error {
-	 
-	//1# Get query coins
-	//2# Get coin news 
+	  
 	q := hasura.Query_blogs() 
 	data_resp := fetchHttp(q) 
 	log.Println("data_resp-Query_blogs");log.Println(data_resp);
@@ -69,8 +67,9 @@ func RenderFrontend(c *fiber.Ctx) error {
 
 	return c.Render("frontend", fiber.Map{
 		"FiberTitle": "Hello From Fiber Html Engine",
-		"Json_coins" : data_resp.Nfb_bitcoin,
-		"Json_blogs" : data_resp.Nfb_blog,
+		"BaseURL": c.BaseURL() ,
+		"Json_coins" : data_resp.Nfb_Bitcoin,
+		"Json_blogs" : data_resp.Nfb_Blog,
 	})
 }
 
@@ -101,12 +100,30 @@ func RenderLogout(c *fiber.Ctx) error {
 		"FiberTitle": "Hello From Fiber Html Engine",
 	})
 }
-func RenderIndex(c *fiber.Ctx) error {
-	log.Println("Higshsss!")
-	return c.Render("frontend", fiber.Map{
-		"FiberTitle": "Hello From Fiber Html Engine",
-	})
+
+func ApiNfb_Coin(c *fiber.Ctx) error {
+ 
+	  
+	q := hasura.Query_blogs() 
+	data_resp := fetchHttp(q) 
+	log.Println("data_resp-Query_blogs");log.Println(data_resp.Nfb_Blog);
+
+	q = hasura.Query_coins() 
+	data_resp = fetchHttp(q) 
+	log.Println("data_resp-Query_coins!!");log.Println(data_resp.Nfb_Bitcoin);
+   
+	return c.JSON(data_resp.Nfb_Bitcoin)
 }
+
+func ApiNfb_Blogs(c *fiber.Ctx) error {
+ 	  
+	q := hasura.Query_blogs() 
+	data_resp := fetchHttp(q) 
+	log.Println("data_resp-Query_blogs");log.Println(data_resp.Nfb_Blog);
+ 
+	return c.JSON(data_resp.Nfb_Blog)
+}
+ 
 func RenderDesign(c *fiber.Ctx) error {
 	log.Println("Higshsss!")
 	return c.Render("frontend", fiber.Map{
@@ -141,10 +158,12 @@ func fetchHttp(hq []byte) DataForm {
 	log.Println("string(data_bytes)");log.Println("string(data_bytes)");
 	log.Println(string(data_bytes))
 	data_resp := Request{}
+
 	err = json.Unmarshal(data_bytes, &data_resp)
 	if err != nil {
 		log.Println("Fetch HTTP Can n not unmnarshal JSON");log.Println(err);
 	}
+	
 	return data_resp.Data
 }
 

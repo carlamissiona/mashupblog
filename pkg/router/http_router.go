@@ -19,7 +19,9 @@ func (h HttpRouter) InstallRouter(app *fiber.App) {
 	pages := app.Group("", cors.New(), csrf.New())
 	pages.Get("/", controllers.RenderFrontend)
 
-	pages.Get("/vue", controllers.RenderFrontend)
+	pages.Get("/api-coins", controllers.ApiNfb_Coin) 
+	pages.Get("/api-blogs", controllers.ApiNfb_Blogs) 
+	
 	pages.Get("/view", controllers.RenderSingle)
 
 	pages.Get("/about", controllers.RenderAbout)
